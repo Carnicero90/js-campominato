@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link rel="stylesheet" href="css/my_frame.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <h1 class="text-center">*** Campo Minato ***</h1>
+    </header>
+    <main class="flexer col center-cross">
+        <div id="blabla" class="scoreboard text-center nada">
+            <h4 id="final-score"></h4>
+
+            <h3>Classifica:</h3>
+            <ol id="scores">
+
+            </ol>
+
+        </div>
+        <div id="ingame-stuff" class="play flexer col center-cross">
+            <label for="user-number">Scegli una casella da 1 a 100</label>
+            <input type="number" name="user-number" id="user-number" min=1 max=100>
+            <button id="check">check</button>
+        </div>
+
+        <div id="mine-field" class="flexer wrap"></div>
+
+    </main>
+
+
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

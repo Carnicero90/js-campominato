@@ -1,0 +1,77 @@
+ol {
+    text-align: center;
+}
+
+#final-score {
+    background-color: orangered;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+    color: white;
+}
+
+.nada {
+    display: none;
+}
+
+ol li {
+    list-style-type: decimal;
+    text-align: left;
+}
+
+body {
+    font-family: Verdana, sans-serif;
+}
+
+h1 {
+    padding-bottom: 20px;
+    padding-top: 20px;
+    text-transform: uppercase;
+    background-color: crimson;
+    margin-bottom: 20px;
+    color: lightgoldenrodyellow
+}
+
+#mine-field {
+    width: 600px;
+    margin: auto;
+}
+
+#check {
+    border-radius: 5px;
+    border: 2px solid lightslategray;
+    padding: 10px 20px;
+    background: slategray;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bolder;
+    font-size: 2rem;
+}
+
+.square {
+    height: calc(600px/10);
+    width: calc(600px/10);
+    border: 1px solid black;
+}
+
+.bomb {
+    background-color: crimson;
+    color: white;
+    font-size: 300%;
+    text-align: center;
+    line-height: 100%;
+    padding-top: 15px;
+}
+
+.hidden {
+    background-color: gray;
+    color: gray;
+
+}
+
+
+
+#final-score {
+    display: block;
+    text-align: center;
+}
