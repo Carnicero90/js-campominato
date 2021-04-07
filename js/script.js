@@ -40,8 +40,13 @@ function playGame() {
         item.addEventListener('click', function() {
             if (!gameOver) {
                 if (item.classList.contains('bomb')) {
-                    endGame(resultMessage = 'hai perso!');
-                    gameOver = true;
+                    document.getElementById('explode').classList.remove('nada');
+                    setTimeout(function() {
+                        endGame(resultMessage = 'hai perso!');
+                        document.getElementById('explode').classList.add('nada');
+                        gameOver = true;
+                    }, 1500)
+
                 } else if (item.classList.contains('hidden')) {
                     item.classList.remove('hidden');
                     score += 1;
