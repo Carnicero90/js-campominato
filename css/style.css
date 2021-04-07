@@ -1,8 +1,72 @@
-ol {
-    text-align: center;
+/* COMMON
+   ======================= */
+.nada {
+    display: none;
 }
 
-#final-score {
+/* ======================= */
+
+/* MACRO LAYOUT
+   ======================= */
+body {
+    font-family: Verdana, sans-serif;
+}
+
+header {
+    padding-bottom: 20px;
+    padding-top: 20px;
+    background-color: crimson;
+}
+
+main {
+    padding-top: 20px;
+}
+
+/* ======================= */
+
+/* MICRO LAYOUT
+   ======================= */
+
+/* ======================= */
+/* header
+   ++++++++++ */
+h1 {
+    text-transform: uppercase;
+    color: lightgoldenrodyellow;
+}
+
+/* ++++++++++ */
+
+/* div#score-board
+   ++++++++++ */
+ol {
+    max-height: 5rem;
+    overflow-y: auto;
+}
+
+ol li {
+    display: flex;
+    justify-content: space-between;
+    list-style-type: decimal;
+    background-color: darksalmon;
+    border-bottom: 1px solid white;
+}
+
+ol li:nth-of-type(1) {
+    background: goldenrod;
+}
+
+ol li:nth-of-type(2) {
+    background: silver;
+}
+
+ol li:nth-of-type(3) {
+    background: #b87333;
+}
+
+
+#final-score,
+#play-again {
     background-color: orangered;
     margin-top: 15px;
     margin-bottom: 15px;
@@ -10,68 +74,45 @@ ol {
     color: white;
 }
 
-.nada {
-    display: none;
-}
+/* ++++++++++ */
 
-ol li {
-    list-style-type: decimal;
-    text-align: left;
-}
-
-body {
-    font-family: Verdana, sans-serif;
-}
-
-h1 {
-    padding-bottom: 20px;
-    padding-top: 20px;
-    text-transform: uppercase;
-    background-color: crimson;
-    margin-bottom: 20px;
-    color: lightgoldenrodyellow
-}
-
+/* div#mine-field
+   ++++++++++ */
 #mine-field {
     width: 600px;
     margin: auto;
-}
-
-#check {
-    border-radius: 5px;
-    border: 2px solid lightslategray;
-    padding: 10px 20px;
-    background: slategray;
-    color: white;
-    text-transform: uppercase;
-    font-weight: bolder;
-    font-size: 2rem;
 }
 
 .square {
     height: calc(600px/10);
     width: calc(600px/10);
     border: 1px solid black;
-}
-
-.bomb {
-    background-color: crimson;
     color: white;
-    font-size: 300%;
+    background-color: darkgreen;
+    font-size: 2rem;
     text-align: center;
     line-height: 100%;
     padding-top: 15px;
 }
 
-.hidden {
+.square::before {
+    content: '\f4d8';
+    font-weight: 900;
+    font-family: "Font Awesome 5 Free";
+}
+
+.square.hidden {
     background-color: gray;
     color: gray;
+}
 
+.bomb {
+    background-color: crimson;
+}
+
+.bomb::before {
+    content: "\f714";
 }
 
 
-
-#final-score {
-    display: block;
-    text-align: center;
-}
+/* ++++++++++ */

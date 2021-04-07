@@ -1,97 +1,96 @@
-// NB: ancora fatto coi piedi, da riordinare, fattorizzare, etc
-
+// MISC
 const totSquares = 100;
-var totBombs = 16;
-var score = 0;
-
-/* uso array a 2 lv per semplicità, per quanto poi realisticamente in situazioni simili utilizzeremo strutture meno "involute": 
-    scores[i][0] --> username 
-    scores[i][1] --> score 
-*/
+const totBombs = 16
 var scores = [
     ['aldo', 1],
-    ['chapo', 52]
+    ['chapo', 27],
+    ['calavera', 4]
 ];
 
-//CREATE PLAYGROUND
-document.getElementById('mine-field').innerHTML = '<div class="square hidden"></div>'.repeat(totSquares);
+// HTML ELEMENTS
 
-var field = arrayFromRange(1, totSquares);
-// CHOOSE GAME MODE
-switch (prompt('scegliere lv difficoltà:\n a) facile\n b) medio\n c) difficile')) {
-    case 'a':
-        totBombs = 5;
-        break;
-    case 'b':
-        totBombs = 10;
-        break;
-    default:
-        totBombs = 16;
-}
+// minefield
+var mineField = document.getElementById('mine-field');
 
-// ADD BOMBS TO EITHER bombsArr AND PLAYGROUND 
-var bombsArr = [];
-var bombSquare = -1;
-for (var i = 0; i < totBombs; i++) {
-    bombSquare = field[Math.floor(Math.random() * field.length)];
-    bombsArr.push(bombSquare);
-    field = removeItem(bombSquare, field);
-    document.getElementsByClassName('square')[bombSquare - 1].innerHTML = '*';
-    document.getElementsByClassName('square')[bombSquare - 1].classList.add('bomb');
-}
+//post-game interface
+var ranks = document.getElementById('score-board');
+var finalScore = document.getElementById('final-score');
+var replay = document.getElementById('play-again');
+var boh = document.getElementById('scores');
+
+// PLAY
+
+playGame();
+
+// RESET PLAYGROUND
+replay.addEventListener("click", function() {
+    playGame();
+})
+
+function playGame() {
+    var score = 0;
+    var gameOver = false;
+
+    setPlayGround();
+
+    var squares = document.getElementsByClassName('square');
+
+    for (var i = 0; i < squares.length; i++) {
+        const item = squares[i];
+        item.addEventListener('click', function() {
+            if (!gameOver) {
+                if (item.classList.contains('bomb')) {
+                    endGame(resultMessage = 'hai perso!');
+                    gameOver = true;
+                } else if (item.classList.contains('hidden')) {
+                    item.classList.remove('hidden');
+                    score += 1;
+                    if (score == totSquares - totBombs) {
+                        endGame(resultMessage = 'hai vinto!');
+                        gameOver = true;
+                    }
+                }
+            }
+        })
+    }
+
+    function setPlayGround() {
+        // CREATE AND DISPLAY MINEFIELD
+        mineField.innerHTML = '<div class="square hidden"></div>'.repeat(totSquares);
+        // CREATE BOMBS
+        var counter = 0;
+        var b = [];
+        while (counter < totBombs) {
+            bombIndex = getRandomInt(0, totSquares)
+            if (!b.includes(bombIndex)) {
+                b.push(bombIndex);
+                document.getElementsByClassName('square')[bombIndex].classList.add('bomb');
+                counter++;
+            }
+        }
+
+        // HIDE POST-GAME INTERFACE
+        ranks.classList.add('nada');
+    }
 
 
-// var gameEnded = false; // flag: if lost --> game is over
-var check = document.getElementById('check');
 
-check.addEventListener("click", function() {
-
-    // if (!gameEnded) {
-    var guess = parseInt(document.getElementById('user-number').value);
-
-    if (field.includes(guess)) {
-        score += 1;
-        document.getElementsByClassName('square')[guess - 1].classList.remove('hidden');
-        field = removeItem(guess, field);
-    } else if (bombsArr.includes(guess)) {
-        // gameEnded = true;
-        var greetOrGrieve = field.length ? 'hai perso!' : 'hai vinto!';
-        alert(greetOrGrieve);
-        document.getElementById('ingame-stuff').classList.add('nada');
-        document.getElementById('final-score').innerHTML = `il tuo punteggio è ${score}`;
-        var userName = prompt('username');
+    function endGame(resultMessage) {
+        alert(resultMessage);
+        finalScore.innerHTML = `il tuo punteggio è ${score}`;
+        var userName = prompt('username') || `player_${getRandomInt(1,100)}`;
         scores.push([userName, score]);
         sortScore(scores);
-        document.getElementById('blabla').classList.remove('nada');
+        ranks.classList.remove('nada');
+        var rankList = '<li>' + scores.join('</span></li><li>').replaceAll(',', ': <span>') + '</li>';
+        document.getElementById('scores').innerHTML = rankList;
         for (el of document.getElementsByClassName('bomb')) {
             el.classList.remove('hidden');
         }
-        var scoreList = document.getElementById('scores').innerHTML;
-        for (i of scores) {
-            document.getElementById('scores').innerHTML += `<li>${i[0]}: ${i[1]}`;
-        }
-    } else {
-        alert('numero inserito non valido!');
     }
-    // }
-})
 
-
-function removeItem(value, arr) {
-    // arr == Array
-    // value == value to remove from arr
-    arr = arr.filter(item => item !== value);
-    return arr
 }
 
-function arrayFromRange(start, stop, step = 1) {
-    // return Array from start to stop (included), with step == step
-    // start, stop, step == integers
-    arr = Array.from({
-        length: (stop - start) / step + 1
-    }, (_, i) => start + (i * step));
-    return arr
-}
 
 function sortScore(arr) {
     // sort arr by arr[i][1] value (reversed)
@@ -100,4 +99,10 @@ function sortScore(arr) {
         return a[1] - b[1];
     });
     return arr.reverse();
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min; //Il max è escluso e il min è incluso
 }
