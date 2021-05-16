@@ -13,28 +13,42 @@
 </head>
 
 <body>
-    <header>
-        <h1 class="text-center"><i class="logging-icon fas fa-skull-crossbones"></i> Campo Minato <i class="logging-icon fas fa-skull-crossbones"></i> </h1>
-    </header>
-    <main class="flexer col center-cross">
-        <div id="score-board" class="scoreboard text-center nada">
-            <h4 id="final-score"></h4>
-
-            <h3>Classifica:</h3>
-            <ol id="scores">
-
-            </ol>
-            <button id="play-again">Gioca di nuovo</button>
+    <div id="root">
+        <header>
+            <h1 class="text-center"><i class="logging-icon fas fa-skull-crossbones"></i> Campo Minato <i
+                    class="logging-icon fas fa-skull-crossbones"></i> </h1>
+        </header>
+        <main class="flexer col center-cross">
+            <!-- minefield -->
+            <div class="mine-field">
+                <div class="row flexer" v-for="row in campo">
+                    <div class="square"  @click="uncover($event)" :class="{ bomb: square=='bomb', hidden: !gameEnded }, row" v-for="square in row">
+                        {{ square !='bomb' ? square : ''}}
+                    </div>
+                </div>
+            </div>
+            <!-- END minefield -->
+            <!-- scoreboard -->
+            <div id="score-board" v-if="gameEnded" class="scoreboard text-center">
+                <h4 id="final-score">{{ 'Punteggio totale: ' + score }}</h4>
+                <h3>Classifica:</h3>
+                <ol id="scores">
+                    <li v-for="score in ranks">
+                        <span>{{score[0]}}</span>
+                        <span>{{score[1]}}</span>
+                    </li>
+                </ol>
+                <button id="play-again" @click="reset">Gioca di nuovo</button>
+            </div>
+            <!-- END scoreboard -->
+        </main>
+        <div id="explode" class="flexer center center-cross nada">
+            <span>BOOM!!!</span>
         </div>
 
-        <div id="mine-field" class="flexer wrap"></div>
-
-    </main>
-    <div id="explode" class="flexer center center-cross nada">
-        <span>BOOM!!!</span>
     </div>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
     <script src="js/script.js"></script>
 </body>
