@@ -20,7 +20,7 @@
         </header>
         <main class="flexer col center-cross">
             <!-- minefield -->
-            <div class="mine-field">
+            <div class="mine-field" v-cloak>
                 <div class="row flexer" v-for="row in campo">
                     <div class="square"  @click="uncover($event)" :class="{ bomb: square=='bomb', hidden: !gameEnded }, row" v-for="square in row">
                         {{ square !='bomb' ? square : ''}}
@@ -29,7 +29,7 @@
             </div>
             <!-- END minefield -->
             <!-- scoreboard -->
-            <div id="score-board" v-if="gameEnded" class="scoreboard text-center">
+            <div id="score-board" v-if="gameEnded" class="scoreboard text-center" v-cloak>
                 <h4 id="final-score">{{ 'Punteggio totale: ' + score }}</h4>
                 <h3>Classifica:</h3>
                 <ol id="scores">
